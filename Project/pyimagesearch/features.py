@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def quantify_image(image, bins=(4, 6, 3), draw=False):
     # compute a 3D color histogram over the image and normalize it
-    hist = cv2.calcHist([image], [0], None,
+    hist = cv2.calcHist([image], [0, 1, 2], None,
                         bins, [0, 180, 0, 256, 0, 256])
     normHist = cv2.normalize(hist, hist).flatten()
     # if draw == True:

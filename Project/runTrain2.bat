@@ -1,0 +1,1 @@
+py train.py --dataset ./data/exp --model model2

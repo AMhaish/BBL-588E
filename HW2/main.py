@@ -9,6 +9,8 @@ from sklearn.datasets.samples_generator import make_blobs
 def doKmeansCluster(image, numberOfClusters=3):
     x, y, z = img.shape
     image_2d = img.reshape(x*y, z)
+    plt.imshow(image_2d)
+    plt.show()
     print('Clustering the image using %d clusters' % (numberOfClusters))
     kmeans_cluster = cluster.KMeans(n_clusters=numberOfClusters)
     kmeans_cluster.fit(image_2d)

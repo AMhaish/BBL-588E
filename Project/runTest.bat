@@ -1,0 +1,1 @@
+py test.py --image ./data/exp/insidecity_a223049.jpg --model model
