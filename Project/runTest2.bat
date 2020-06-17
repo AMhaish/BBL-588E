@@ -1,1 +1,1 @@
-py test2.py --image ./data/exp/insidecity_a223049.jpg --model model2
+py test.py --training ./data/test/train --same ./data/test/same --differentgreen ./data/test/differentWithGreen --different ./data/test/different --model model2

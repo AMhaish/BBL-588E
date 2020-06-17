@@ -34,3 +34,20 @@ def load_dataset(datasetPath, bins):
         data.append(features)
     # return our data list as a NumPy array
     return np.array(data)
+
+
+def load_dataset_with_paths(datasetPath, bins):
+    # grab the paths to all images in our dataset directory, then
+    # initialize our lists of images
+    imagePaths = list(paths.list_images(datasetPath))
+    data = []
+    # loop over the image paths
+    for imagePath in imagePaths:
+        # load the image and convert it to the HSV color space
+        image = cv2.imread(imagePath)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        # quantify the image and update the data list
+        features = quantify_image(image, bins)
+        data.append((imagePath, features))
+    # return our data list as a NumPy array
+    return data
