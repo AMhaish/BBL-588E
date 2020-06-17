@@ -39,8 +39,8 @@ def processDataset(title, data, sameType, model):
             succeededCounter += 1
     print("[INFO] %s finished with accuracy %f" %
           (title, succeededCounter / (len(preds))))
-    printImagesPathsAndPredictionResults(data, preds)
-    showImagesAndPredictionResults(data, preds)
+    #printImagesPathsAndPredictionResults(data, preds)
+    #showImagesAndPredictionResults(data, preds)
 
 
 ap = argparse.ArgumentParser()
@@ -65,14 +65,15 @@ data_d = load_dataset_with_paths(args["different"], bins=(3, 3, 3))
 print("[INFO] loading anomaly detection model...")
 model = pickle.loads(open(args["model"], "rb").read())
 
-#print("[INFO] processing training dataset")
-#processDataset("traning set", data, True, model)
+print("[INFO] processing training dataset")
+processDataset("traning set", data, True, model)
 
-#print("[INFO] processing same scenses dataset")
-#processDataset("same scenses dataset", data_s, True, model)
+print("[INFO] processing same scenses dataset")
+processDataset("same scenses dataset", data_s, True, model)
 
-#print("[INFO] processing different scenses with green color ranges dataset")
-#processDataset("different scenses with green color ranges dataset",data_dg, False, model)
+print("[INFO] processing different scenses with green color ranges dataset")
+processDataset("different scenses with green color ranges dataset",
+               data_dg, False, model)
 
 print("[INFO] processing different scenses dataset")
 processDataset("different scenses dataset", data_d, False, model)
