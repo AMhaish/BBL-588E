@@ -6,17 +6,32 @@ from sklearn import cluster
 from sklearn.datasets.samples_generator import make_blobs
 
 
-def doKmeansCluster(image, numberOfClusters=3):
+def rgb2gray(rgb):
+    return np.dot(rgb[..., :3], [0.333, 0.333, 0.333])
+
+
+def doKmeansClusterOnRGB(img, numberOfClusters=3):
     x, y, z = img.shape
-    image_2d = img.reshape(x*y, z)
-    plt.imshow(image_2d)
-    plt.show()
+    algo_input = img.reshape(x*y, z)
     print('Clustering the image using %d clusters' % (numberOfClusters))
     kmeans_cluster = cluster.KMeans(n_clusters=numberOfClusters)
-    kmeans_cluster.fit(image_2d)
+    kmeans_cluster.fit(algo_input)
     cluster_centers = kmeans_cluster.cluster_centers_
     cluster_labels = kmeans_cluster.labels_
     resultImage = cluster_centers[cluster_labels].reshape(x, y, z)
+    return resultImage.astype(int)
+
+
+def doKmeansClusterOnGrayscale(img, numberOfClusters=3):
+    gimg = np.dot(img[..., :3], [0.333, 0.333, 0.333])
+    x, y = gimg.shape
+    algo_input = gimg.reshape(x*y, 1)
+    print('Clustering the image using %d clusters' % (numberOfClusters))
+    kmeans_cluster = cluster.KMeans(n_clusters=numberOfClusters)
+    kmeans_cluster.fit(algo_input)
+    cluster_centers = kmeans_cluster.cluster_centers_
+    cluster_labels = kmeans_cluster.labels_
+    resultImage = cluster_centers[cluster_labels].reshape(x, y)
     return resultImage.astype(int)
 
 
@@ -38,27 +53,52 @@ def doMeanShift(image):
 print('Loading image')
 img = mpimg.imread('SunnyLake.bmp')
 
-print('Clustering using KMeans algorithim')
-plt.subplot(231), plt.imshow(img), plt.title('Original')
+print('Clustering using KMeans algorithm')
+plt.subplot(431), plt.imshow(img, cmap=plt.get_cmap(
+    'gray')), plt.title('Original')
 plt.xticks([]), plt.yticks([])
-plt.subplot(232), plt.imshow(
-    doKmeansCluster(img, 3)), plt.title('Clustered with K=3')
+plt.subplot(432), plt.imshow(
+    doKmeansClusterOnGrayscale(img, 3), cmap=plt.get_cmap(
+        'gray')), plt.title('Clustered with K=3 on grayscale')
 plt.xticks([]), plt.yticks([])
-plt.subplot(233), plt.imshow(
-    doKmeansCluster(img, 5)), plt.title('Clustered with K=5')
+plt.subplot(433), plt.imshow(
+    doKmeansClusterOnGrayscale(img, 5), cmap=plt.get_cmap(
+        'gray')), plt.title('Clustered with K=5 on grayscale')
 plt.xticks([]), plt.yticks([])
-plt.subplot(234), plt.imshow(
-    doKmeansCluster(img, 7)), plt.title('Clustered with K=7')
+plt.subplot(434), plt.imshow(
+    doKmeansClusterOnGrayscale(img, 7), cmap=plt.get_cmap(
+        'gray')), plt.title('Clustered with K=7 on grayscale')
 plt.xticks([]), plt.yticks([])
-plt.subplot(235), plt.imshow(
-    doKmeansCluster(img, 9)), plt.title('Clustered with K=9')
+plt.subplot(435), plt.imshow(
+    doKmeansClusterOnGrayscale(img, 9), cmap=plt.get_cmap(
+        'gray')), plt.title('Clustered with K=9 on grayscale')
 plt.xticks([]), plt.yticks([])
-plt.subplot(236), plt.imshow(
-    doKmeansCluster(img, 12)), plt.title('Clustered with K=12')
+plt.subplot(436), plt.imshow(
+    doKmeansClusterOnGrayscale(img, 12), cmap=plt.get_cmap(
+        'gray')), plt.title('Clustered with K=12 on grayscale')
+plt.xticks([]), plt.yticks([])
+plt.subplot(437), plt.imshow(img, cmap=plt.get_cmap(
+    'gray')), plt.title('Original')
+plt.xticks([]), plt.yticks([])
+plt.subplot(438), plt.imshow(
+    doKmeansClusterOnRGB(img, 3)), plt.title('Clustered with K=3 on RGB featrue vector')
+plt.xticks([]), plt.yticks([])
+plt.subplot(439), plt.imshow(
+    doKmeansClusterOnRGB(img, 5)), plt.title('Clustered with K=5 on featrue vector')
+plt.xticks([]), plt.yticks([])
+plt.subplot(4, 3, 10), plt.imshow(
+    doKmeansClusterOnRGB(img, 7)), plt.title('Clustered with K=7 on featrue vector')
+plt.xticks([]), plt.yticks([])
+plt.subplot(4, 3, 11), plt.imshow(
+    doKmeansClusterOnRGB(img, 9)), plt.title('Clustered with K=9 on featrue vector')
+plt.xticks([]), plt.yticks([])
+plt.subplot(4, 3, 12), plt.imshow(
+    doKmeansClusterOnRGB(img, 12)), plt.title('Clustered with K=12 on featrue vector')
 plt.xticks([]), plt.yticks([])
 plt.show()
 
-print('Clustering using MeanShift algorithim')
+
+print('Clustering using MeanShift algorithm')
 plt.xticks([]), plt.yticks([])
 plt.subplot(121), plt.imshow(
     img), plt.title('')
