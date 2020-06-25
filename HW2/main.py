@@ -36,7 +36,7 @@ def doKmeansClusterOnGrayscale(img, numberOfClusters=3):
 
 
 def doMeanShiftOnGray(image, bandwidth=None):
-    gimg = np.dot(img[..., :3], [0.333, 0.333, 0.333])
+    gimg = np.dot(image[..., :3], [0.333, 0.333, 0.333])
     x, y = gimg.shape
     algo_input = gimg.reshape(x*y, 1)
     if bandwidth is None:
@@ -53,8 +53,8 @@ def doMeanShiftOnGray(image, bandwidth=None):
 
 
 def doMeanShiftOnRGB(image, bandwidth=None):
-    x, y, z = img.shape
-    algo_input = img.reshape(x*y, z)
+    x, y, z = image.shape
+    algo_input = image.reshape(x*y, z)
     if bandwidth is None:
         bandwidth = cluster.estimate_bandwidth(
             algo_input, quantile=0.1, n_samples=100)
