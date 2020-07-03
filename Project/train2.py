@@ -3,6 +3,8 @@ from pyimagesearch.features import load_dataset
 from sklearn.ensemble import RandomForestClassifier
 import argparse
 import pickle
+import time
+start_time = time.time()
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset", required=True,
@@ -24,3 +26,4 @@ model.fit(data)
 f = open(args["model"], "wb")
 f.write(pickle.dumps(model))
 f.close()
+print("--- %s seconds ---" % (time.time() - start_time))

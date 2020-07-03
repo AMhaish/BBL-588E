@@ -5,6 +5,8 @@ import pickle
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+import time
+start_time = time.time()
 # construct the argument parser and parse the arguments
 
 
@@ -77,3 +79,5 @@ processDataset("different scenses with green color ranges dataset",
 
 print("[INFO] processing different scenses dataset")
 processDataset("different scenses dataset", data_d, False, model)
+
+print("--- %s seconds ---" % (time.time() - start_time))
